@@ -1,0 +1,11 @@
+.jumbotron{
+    height: 100vh;
+}
+
+.jumbotron .display-4{
+    margin-top:150px;
+}
+
+.jumbotron .form-group{
+    width: 30%;
+}
