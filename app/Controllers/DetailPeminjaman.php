@@ -2,13 +2,14 @@
 
 namespace App\Controllers;
 
-class Register extends BaseController
+class detailPeminjaman extends BaseController
 {
-    public function index()
+    public function Index()
     {
         echo view('header');
         echo view('footer');
-        return view('register');
+        echo view('navbar');
+        return view('detailPeminjaman');
     }
     //--------------------------------------------------------------------
 
