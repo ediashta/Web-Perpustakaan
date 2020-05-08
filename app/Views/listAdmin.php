@@ -30,7 +30,7 @@
                                                 <th>Kategori </th>
                                                 <th>Pengarang</th>
                                                 <th>Stok</th>
-                                                <th>&nbsp</th>
+                                                <th colspan="2">&nbsp</th>
                                             </tr>
                                             <?php $no = 1;
                                             foreach ($buku as $item_buku) : ?>
@@ -52,7 +52,12 @@
                                                     <td>
                                                         <?= esc($item_buku['stock']); ?>
                                                     </td>
-                                                    <td align="middle"><a class="btn btn-success" href=#>+</a></td>
+                                                    <td>
+                                                        <a class="btn btn-success" href=#>+</a>
+                                                    </td>
+                                                    <td>
+                                                        <a class="btn btn-danger" href=#>-</a>
+                                                    </td>
                                                 </tr>
                                             <?php endforeach ?>
                                         </table>
@@ -67,6 +72,7 @@
                 </div>
 
             </div>
+
 </body>
 
 </html>
