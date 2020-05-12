@@ -14,7 +14,7 @@ class BukuModel extends Model
         if ($id === false) {
             return $this->findAll();
         }
-        return $this->asArray()->where(['id_buku' => $id])->first();
+        return $this->where('id_buku', $id)->get()->getRowArray();
     }
 
     public function insertBuku($data)

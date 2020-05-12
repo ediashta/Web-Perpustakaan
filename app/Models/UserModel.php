@@ -6,25 +6,26 @@ use CodeIgniter\Model;
 
 class UserModel extends Model
 {
-    protected $table = 'buku';
+    protected $table = 'user';
 
-    public function getUser($id = false)
+    public function getUser($username = false)
     {
 
-        if ($id === false) {
+        if ($username === false) {
             return $this->findAll();
+        } else {
+            return $this->where('username', $username)->get()->getRowArray();
         }
-        return $this->asArray()->where(['id_buku' => $id])->first();
     }
 
     public function insertUser($data)
     {
-        $this->db->table('buku')->insert($data);
+        $this->db->table('user')->insert($data);
     }
 
     public function deleteUser($id)
     {
-        $builder = $this->db->table('buku');
+        $builder = $this->db->table('user');
         $builder->where('id', $id);
 
         $builder->delete();
@@ -32,7 +33,7 @@ class UserModel extends Model
 
     public function updateUser($id, $data)
     {
-        $builder = $this->db->table('buku');
+        $builder = $this->db->table('user');
         $builder->where('id', $id);
         $builder->update($data);
     }

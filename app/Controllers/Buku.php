@@ -15,7 +15,11 @@ class Buku extends Controller
         //get buku
         $data['buku'] = $buku->getBuku();
 
-        echo view('buku', $data);
+        if (session()->get('role') == 1) {
+            echo view('dashboard_admin', $data);
+        } else if (session()->get('role') == 2) {
+            echo view('dashboard_user', $data);
+        }
     }
 
     public function view($id)
@@ -28,43 +32,69 @@ class Buku extends Controller
         // echo view('detail_buku', $data);
     }
 
-    public function delete()
+    public function tambah()
     {
-        $buku = new BukuModel();
-        $buku->deleteBuku(30);
-        echo "delete";
+        echo view('tes_tambah');
     }
 
-    public function update()
-    {
-        echo view('edit_buku'); //view bisa diganti
-    }
-
-    public function update_process($id)
+    public function tambah_process()
     {
         $buku = new BukuModel();
 
         $data = [
-            'judul' => "One Piece",
-            'penulis' => "Eiichiro Oda",
+            'judul' => $this->request->getPost('judul'),
+            'penulis' => $this->request->getPost('penulis'),
+            'kategori' => $this->request->getPost('kategori'),
+            'stock' => $this->request->getPost('stock'),
         ];
-
-        // $data = [
-        //     'judul' => $this->request->getPost['judul'],
-        //     'penulis' => $this->request->getPost['penulis'],
-        //     'kategori' => $this->request->getPost['kategori'],
-        //     'stock' => $this->request->getPost['stock'],
-        // ];
-
-        $buku->updateBuku($id, $data);
-
-        echo "Update Berhasil";
+        
+        $buku->insertBuku($data);
 
         /*
             base_urlnya localhost/perpustakaan
 
             controller dan method menyesuaikan
         */
-        redirect()->to(base_url() + "/buku/dashboard");
+        return redirect()->to(base_url("/buku/index"));
+    }
+
+    public function delete($id)
+    {
+        $buku = new BukuModel();
+        $buku->deleteBuku($id);
+
+        return redirect()->to(base_url('/buku/index'));
+    }
+
+    public function update($id)
+    {
+        $buku = new BukuModel();
+
+        $data['buku'] = $buku->getBuku($id);
+
+        // var_dump($data);
+        echo view('tes_edit', $data); //view bisa diganti
+    }
+
+    public function update_process()
+    {
+        $buku = new BukuModel();
+        $id = $this->request->getPost('id');
+
+        $data = [
+            'judul' => $this->request->getPost('judul'),
+            'penulis' => $this->request->getPost('penulis'),
+            'kategori' => $this->request->getPost('kategori'),
+            'stock' => $this->request->getPost('stock'),
+        ];
+
+        $buku->updateBuku($id, $data);
+
+        /*
+            base_urlnya localhost/perpustakaan
+
+            controller dan method menyesuaikan
+        */
+        return redirect()->to(base_url("/buku/index"));
     }
 }

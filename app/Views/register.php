@@ -39,7 +39,7 @@
                                     <div class="text-center">
                                         <h1 class="h1 text-gray-900 mb-4 font-weight-bold">Create an Account!</h1>
                                     </div>
-                                    <form class="user">
+                                    <form class="user" method="POST" action="<?= base_Url('auth/registration'); ?>">
                                         <div class="form-group">
                                             <input type="text" class="form-control form-control-user" id="Name" name="name" placeholder="Full Name">
                                         </div>
