@@ -7,38 +7,17 @@ use CodeIgniter\Controller;
 
 class Buku extends Controller
 {
-
-    public function index()
-    {
-        $buku = new BukuModel();
-
-        //get buku
-        $data['buku'] = $buku->getBuku();
-
-        if (session()->get('role') == 1) {
-            echo view('dashboard_admin', $data);
-        } else if (session()->get('role') == 2) {
-            echo view('dashboard_user', $data);
-        }
-    }
-
-    public function view($id)
-    {
-        $buku = new BukuModel();
-
-        //get Buku
-        // $data['buku'] = $buku->getBuku($id);
-        echo "tes";
-        // echo view('detail_buku', $data);
-    }
-
     public function tambah()
     {
-        echo view('tes_tambah');
+        echo view('header');
+        echo view('footer');
+        echo view('navbar');
+        echo view('bukuAdd');
     }
 
     public function tambah_process()
     {
+
         $buku = new BukuModel();
 
         $data = [
@@ -47,7 +26,7 @@ class Buku extends Controller
             'kategori' => $this->request->getPost('kategori'),
             'stock' => $this->request->getPost('stock'),
         ];
-        
+
         $buku->insertBuku($data);
 
         /*
@@ -55,7 +34,7 @@ class Buku extends Controller
 
             controller dan method menyesuaikan
         */
-        return redirect()->to(base_url("/buku/index"));
+        return redirect()->to(base_url("/home"));
     }
 
     public function delete($id)
@@ -63,7 +42,7 @@ class Buku extends Controller
         $buku = new BukuModel();
         $buku->deleteBuku($id);
 
-        return redirect()->to(base_url('/buku/index'));
+        return redirect()->to(base_url('/home'));
     }
 
     public function update($id)
@@ -72,8 +51,10 @@ class Buku extends Controller
 
         $data['buku'] = $buku->getBuku($id);
 
-        // var_dump($data);
-        echo view('tes_edit', $data); //view bisa diganti
+        echo view('header');
+        echo view('footer');
+        echo view('navbar');
+        return view('bukuUpdate', $data); //view bisa diganti
     }
 
     public function update_process()
@@ -90,11 +71,6 @@ class Buku extends Controller
 
         $buku->updateBuku($id, $data);
 
-        /*
-            base_urlnya localhost/perpustakaan
-
-            controller dan method menyesuaikan
-        */
-        return redirect()->to(base_url("/buku/index"));
+        return redirect()->to(base_url("/home"));
     }
 }

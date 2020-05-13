@@ -23,18 +23,18 @@ class UserModel extends Model
         $this->db->table('user')->insert($data);
     }
 
-    public function deleteUser($id)
+    public function deleteUser($user)
     {
         $builder = $this->db->table('user');
-        $builder->where('id', $id);
+        $builder->where('username', $user);
 
         $builder->delete();
     }
 
-    public function updateUser($id, $data)
+    public function updateUser($user, $data)
     {
         $builder = $this->db->table('user');
-        $builder->where('id', $id);
+        $builder->where('username', $user);
         $builder->update($data);
     }
 }
